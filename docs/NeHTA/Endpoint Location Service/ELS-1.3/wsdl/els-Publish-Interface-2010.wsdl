@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:tns="http://ns.electronichealth.net.au/els/svc/Publish/2010"
+                  xmlns:sdt="http://ns.electronichealth.net.au/els/xsd/DataTypes/2010"
+                  xmlns:se="http://ns.electronichealth.net.au/wsp/xsd/StandardError/2010"
+                  name="Publish"
+                  targetNamespace="http://ns.electronichealth.net.au/els/svc/Publish/2010">
+   <wsdl:types>
+      <xsd:schema targetNamespace="http://ns.electronichealth.net.au/els/svc/Publish/2010"
+                  elementFormDefault="qualified">
+         <xsd:import namespace="http://ns.electronichealth.net.au/els/xsd/DataTypes/2010"
+                     schemaLocation="../xsd/els-DataTypes-2010.xsd"/>
+         <xsd:import namespace="http://ns.electronichealth.net.au/wsp/xsd/StandardError/2010"
+                     schemaLocation="../xsd/wsp-StandardError-2010.xsd"/>
+         <xsd:element name="addInteraction">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="interaction" type="sdt:InteractionType" minOccurs="1" maxOccurs="1"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="addInteractionResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="returnCode" type="tns:PublishReturnCodeType" minOccurs="1" maxOccurs="1"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="removeInteraction">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="interaction" type="sdt:InteractionType" minOccurs="1" maxOccurs="1"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="removeInteractionResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="returnCode" type="tns:PublishReturnCodeType" minOccurs="1" maxOccurs="1"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="publishError" type="tns:PublishErrorType"/>
+         <xsd:simpleType name="PublishErrorCodeType">
+            <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="unknownTargetId"/>
+            </xsd:restriction>
+         </xsd:simpleType>
+         <xsd:simpleType name="PublishReturnCodeType">
+            <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="ok"/>
+               <xsd:enumeration value="duplicate"/>
+               <xsd:enumeration value="notFound"/>
+            </xsd:restriction>
+         </xsd:simpleType>
+         <xsd:complexType name="PublishErrorType">
+            <xsd:sequence>
+               <xsd:element name="errorCode" type="tns:PublishErrorCodeType" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+         </xsd:complexType>
+      </xsd:schema>
+   </wsdl:types>
+   <wsdl:message name="addInteractionInMsg">
+      <wsdl:part name="body" element="tns:addInteraction"/>
+   </wsdl:message>
+   <wsdl:message name="addInteractionOutMsg">
+      <wsdl:part name="body" element="tns:addInteractionResponse"/>
+   </wsdl:message>
+   <wsdl:message name="removeInteractionInMsg">
+      <wsdl:part name="body" element="tns:removeInteraction"/>
+   </wsdl:message>
+   <wsdl:message name="removeInteractionOutMsg">
+      <wsdl:part name="body" element="tns:removeInteractionResponse"/>
+   </wsdl:message>
+   <wsdl:message name="publishErrorMsg">
+      <wsdl:part name="fault" element="tns:publishError"/>
+   </wsdl:message>
+   <wsdl:message name="standardErrorMsg">
+      <wsdl:part name="fault" element="se:standardError"/>
+   </wsdl:message>
+   <wsdl:portType name="Publish">
+      <wsdl:operation name="addInteraction">
+         <wsdl:input message="tns:addInteractionInMsg"
+                     wsam:Action="http://ns.electronichealth.net.au/els/svc/Publish/2010/Publish/addInteractionRequest"/>
+         <wsdl:output message="tns:addInteractionOutMsg"
+                      wsam:Action="http://ns.electronichealth.net.au/els/svc/Publish/2010/Publish/addInteractionResponse"/>
+         <wsdl:fault name="publishError" message="tns:publishErrorMsg"
+                     wsam:Action="http://ns.electronichealth.net.au/els/svc/Publish/2010/Publish/addInteraction/Fault/publishError"/>
+         <wsdl:fault name="standardError" message="tns:standardErrorMsg"
+                     wsam:Action="http://ns.electronichealth.net.au/els/svc/Publish/2010/Publish/addInteraction/Fault/standardError"/>
+      </wsdl:operation>
+      <wsdl:operation name="removeInteraction">
+         <wsdl:input message="tns:removeInteractionInMsg"
+                     wsam:Action="http://ns.electronichealth.net.au/els/svc/Publish/2010/Publish/removeInteractionRequest"/>
+         <wsdl:output message="tns:removeInteractionOutMsg"
+                      wsam:Action="http://ns.electronichealth.net.au/els/svc/Publish/2010/Publish/removeInteractionResponse"/>
+         <wsdl:fault name="publishError" message="tns:publishErrorMsg"
+                     wsam:Action="http://ns.electronichealth.net.au/els/svc/Publish/2010/Publish/removeInteraction/Fault/publishError"/>
+         <wsdl:fault name="standardError" message="tns:standardErrorMsg"
+                     wsam:Action="http://ns.electronichealth.net.au/els/svc/Publish/2010/Publish/removeInteraction/Fault/standardError"/>
+      </wsdl:operation>
+   </wsdl:portType>
+</wsdl:definitions>
