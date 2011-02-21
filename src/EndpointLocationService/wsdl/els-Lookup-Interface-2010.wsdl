@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:tns="http://ns.electronichealth.net.au/els/svc/Lookup/2010"
+                  xmlns:sdt="http://ns.electronichealth.net.au/els/xsd/DataTypes/2010"
+                  xmlns:se="http://ns.electronichealth.net.au/wsp/xsd/StandardError/2010"
+                  name="Lookup"
+                  targetNamespace="http://ns.electronichealth.net.au/els/svc/Lookup/2010">
+   <wsdl:types>
+      <xsd:schema targetNamespace="http://ns.electronichealth.net.au/els/svc/Lookup/2010"
+                  elementFormDefault="qualified">
+         <xsd:import namespace="http://ns.electronichealth.net.au/els/xsd/DataTypes/2010"
+                     schemaLocation="../xsd/els-DataTypes-2010.xsd"/>
+         <xsd:import namespace="http://ns.electronichealth.net.au/wsp/xsd/StandardError/2010"
+                     schemaLocation="../xsd/wsp-StandardError-2010.xsd"/>
+         <xsd:element name="listInteractions">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="interactionRequest" type="sdt:InteractionRequestType" minOccurs="1"
+                               maxOccurs="1"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="listInteractionsResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="interaction" type="sdt:InteractionType" minOccurs="0"
+                               maxOccurs="unbounded"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="validateInteraction">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="interaction" type="sdt:InteractionType" minOccurs="1" maxOccurs="1"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="validateInteractionResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="isValid" type="xsd:boolean" minOccurs="1" maxOccurs="1"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="lookupError" type="tns:LookupErrorType"/>
+         <xsd:simpleType name="LookupErrorCodeType">
+            <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="unknownTargetId"/>
+            </xsd:restriction>
+         </xsd:simpleType>
+         <xsd:complexType name="LookupErrorType">
+            <xsd:sequence>
+               <xsd:element name="errorCode" type="tns:LookupErrorCodeType" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+         </xsd:complexType>
+      </xsd:schema>
+   </wsdl:types>
+   <wsdl:message name="listInteractionsInMsg">
+      <wsdl:part name="body" element="tns:listInteractions"/>
+   </wsdl:message>
+   <wsdl:message name="listInteractionsOutMsg">
+      <wsdl:part name="body" element="tns:listInteractionsResponse"/>
+   </wsdl:message>
+   <wsdl:message name="validateInteractionInMsg">
+      <wsdl:part name="body" element="tns:validateInteraction"/>
+   </wsdl:message>
+   <wsdl:message name="validateInteractionOutMsg">
+      <wsdl:part name="body" element="tns:validateInteractionResponse"/>
+   </wsdl:message>
+   <wsdl:message name="standardErrorMsg">
+      <wsdl:part name="fault" element="se:standardError"/>
+   </wsdl:message>
+   <wsdl:message name="lookupErrorMsg">
+      <wsdl:part name="fault" element="tns:lookupError"/>
+   </wsdl:message>
+   <wsdl:portType name="Lookup">
+      <wsdl:operation name="listInteractions">
+         <wsdl:input message="tns:listInteractionsInMsg"
+                     wsam:Action="http://ns.electronichealth.net.au/els/svc/Lookup/2010/Lookup/listInteractionsRequest"/>
+         <wsdl:output message="tns:listInteractionsOutMsg"
+                      wsam:Action="http://ns.electronichealth.net.au/els/svc/Lookup/2010/Lookup/listInteractionsResponse"/>
+         <wsdl:fault name="standardError" message="tns:standardErrorMsg"
+                     wsam:Action="http://ns.electronichealth.net.au/els/svc/Lookup/2010/Lookup/listInteractions/Fault/standardError"/>
+         <wsdl:fault name="lookupError" message="tns:lookupErrorMsg"
+                     wsam:Action="http://ns.electronichealth.net.au/els/svc/Lookup/2010/Lookup/listInteractions/Fault/lookupError"/>
+      </wsdl:operation>
+      <wsdl:operation name="validateInteraction">
+         <wsdl:input message="tns:validateInteractionInMsg"
+                     wsam:Action="http://ns.electronichealth.net.au/els/svc/Lookup/2010/Lookup/validateInteractionRequest"/>
+         <wsdl:output message="tns:validateInteractionOutMsg"
+                      wsam:Action="http://ns.electronichealth.net.au/els/svc/Lookup/2010/Lookup/validateInteractionResponse"/>
+         <wsdl:fault name="standardError" message="tns:standardErrorMsg"
+                     wsam:Action="http://ns.electronichealth.net.au/els/svc/Lookup/2010/Lookup/validateInteraction/Fault/standardError"/>
+         <wsdl:fault name="lookupError" message="tns:lookupErrorMsg"
+                     wsam:Action="http://ns.electronichealth.net.au/els/svc/Lookup/2010/Lookup/validateInteraction/Fault/lookupError"/>
+      </wsdl:operation>
+   </wsdl:portType>
+</wsdl:definitions>

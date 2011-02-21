@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5F260E22-2033-43C9-AE30-CF4D6D49215F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OpenHealthMessaging.Els.Service</RootNamespace>
+    <AssemblyName>OpenHealthMessaging.Els.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ElsCertRefType.cs" />
+    <Compile Include="ILookup.cs" />
+    <Compile Include="ILookupChannel.cs" />
+    <Compile Include="InteractionRequestType.cs" />
+    <Compile Include="InteractionType.cs" />
+    <Compile Include="ListInteractions.cs" />
+    <Compile Include="ListInteractionsRequest.cs" />
+    <Compile Include="ListInteractionsResponse.cs" />
+    <Compile Include="LookupClient.cs" />
+    <Compile Include="LookupErrorCodeType.cs" />
+    <Compile Include="LookupErrorType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QualifiedCertRefType.cs" />
+    <Compile Include="StandardErrorCodeType.cs" />
+    <Compile Include="StandardErrorType.cs" />
+    <Compile Include="ValidateInteraction.cs" />
+    <Compile Include="ValidateInteractionRequest.cs" />
+    <Compile Include="ValidateInteractionResponse.cs" />
+    <Compile Include="ValidateInteractionResponse1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonDataTypes\OpenHealthMessaging.CommonDataTypes.csproj">
+      <Project>{4B35883B-6C1A-4697-9E23-DC68CEBBFE2C}</Project>
+      <Name>OpenHealthMessaging.CommonDataTypes</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="wsdl\els-Lookup-Interface-2010.wsdl" />
+    <None Include="wsdl\els-Lookup-TLS-2010.wsdl" />
+    <None Include="wsdl\els-Publish-Interface-2010.wsdl" />
+    <None Include="wsdl\els-Publish-TLS-2010.wsdl" />
+    <None Include="xsd\els-DataTypes-2010.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="xsd\qcr-QualifiedCertRef-2010.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="xsd\wsp-StandardError-2010.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
